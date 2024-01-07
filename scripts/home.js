@@ -19,5 +19,8 @@ async function executeAPICallout(endpoint, options = null) {
 }
 
 async function onBodyLoad() {
-  await executeAPICallout("https://www.fotmob.com");
+  await executeAPICallout("https://www.fotmob.com/", {
+    method: "GET",
+    mode: "cors",
+  });
 }
