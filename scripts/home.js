@@ -9,18 +9,22 @@ async function executeAPICallout(endpoint, options = null) {
 
   if (response.ok) {
     const responseJson = await response.json();
-    console.log("RESPONSE", responseJson);
-    // return responseJson;
+    return responseJson;
   } else {
     const errorMessage = `Error executing API callout to ${endpoint}: ${response.status} - ${response.statusText}`;
-    // throw new Error(errorMessage);
-    console.error(errorMessage);
+    throw new Error(errorMessage);
   }
 }
 
 async function onBodyLoad() {
-  await executeAPICallout("https://www.fotmob.com/", {
-    method: "GET",
-    mode: "cors",
-  });
+  try {
+    const response = await executeAPICallout("https://www.fotmob.com/", {
+      method: "GET",
+      mode: "no-cors",
+    });
+
+    console.log("RESPONSE", response);
+  } catch (e) {
+    console.error(e);
+  }
 }
